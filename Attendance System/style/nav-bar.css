@@ -195,3 +195,14 @@ body {
 .util-btns li a:hover {
   background: rgba(182, 182, 182, 0.4);
 }
+
+
+@media (max-width: 768px){
+  .sidebar-menu{
+    display: none;
+  }
+  body{
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+}
