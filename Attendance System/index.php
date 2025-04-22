@@ -30,7 +30,7 @@
       Forgot Password?
     </a>
 
-    <input onclick="window.location.href='dashboard.html'" class="login-btn" type="submit" value="Log In">
+    <input class="login-btn" type="submit" value="Log In">
 
     <p class="signUp-form-btn">Don't have an Account? <a href="signUp.html">Sign Up</a></p>
   </form>

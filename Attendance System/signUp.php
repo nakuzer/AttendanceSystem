@@ -45,7 +45,7 @@
 
       <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" required>
 
-      <button onclick="window.location.href='index.html'" id="submit-btn" type="submit">Create my new account</button>
+      <button id="submit-btn" type="submit">Create my new account</button>
     </form>
   </div>
 
