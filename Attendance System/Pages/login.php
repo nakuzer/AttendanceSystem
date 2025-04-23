@@ -5,21 +5,29 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>checkLY</title>
-  <link rel="stylesheet" href="../Attendance System/style/style.css">
+  <link rel="stylesheet" href="../style/login.css">
 </head>
 
 <body>
   <h1 class="checkLY">
     check<span>LY</span>
   </h1>
-  <form class="login-form">
+  <form method="POST" action="../Class/login.php" class="login-form">
+    <input type="hidden" id="selectedRole" name="role" value="" required>
+    <div class="choice">
+      <div class="role-option student" data-role="student">
+        STUDENT
+      </div>
+      <div class="role-option teacher" data-role="teacher">
+        TEACHER
+      </div>
+    </div>
     <h1>
       Log In
     </h1>
-    <span>
-      Welcome! Please enter the required information to proceed. Thank You!
-    </span>
-
+    <p>
+      <span id="message">Welcome!</span> Please enter the required information to proceed. Thank You!
+    </p>
     <div class="input-group">
       <input type="text" id="email" for="email" placeholder="Email" required>
     </div>
@@ -32,8 +40,10 @@
 
     <input class="login-btn" type="submit" value="Log In">
 
-    <p class="signUp-form-btn">Don't have an Account? <a href="signUp.html">Sign Up</a></p>
+    <p class="signUp-form-btn">Don't have an Account? <a href="signUp.php">Sign Up</a></p>
   </form>
+
+  <script src="../JavaScript/login.js"></script>
 </body>
 
 </html>

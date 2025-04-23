@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CheckLY - Create Account</title>
-  <link rel="stylesheet" href="../Attendance System/style/signup.css">
+  <link rel="stylesheet" href="../style/signup.css">
 </head>
 
 <body>
@@ -16,19 +16,18 @@
     <h2>Choose Your Role</h2>
     <div class="role-select">
       <div class="role-option student" data-role="student">
-        <img src="images/student1.png" alt="">
-          
+        <img src="../images/student1.png" alt="">
         <span>Student</span>
       </div>
       <div class="role-option teacher" data-role="teacher">
-        <img src="images/teacher1.png" alt="">
+        <img src="../images/teacher1.png" alt="">
         <span>Teacher</span>
       </div>
     </div>
 
-    <form class="signup-form" id="signupForm">
+    <form action="../Class/registration.php" method="POST" class="signup-form" id="signupForm">
 
-      <input type="hidden" id="selectedRole" name="role" required>
+      <input type="hidden" id="selectedRole" name="role" value="" required>
 
       <input type="email" id="email" name="email" placeholder="Email" required>
 
@@ -49,7 +48,7 @@
     </form>
   </div>
 
-  <script src="../Attendance System/JavaScript/signup.js"></script>
+  <script src="../JavaScript/signup.js"></script>
 </body>
 
 </html>
