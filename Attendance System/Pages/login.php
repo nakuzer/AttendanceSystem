@@ -15,10 +15,10 @@
   <form method="POST" action="../Class/login.php" class="login-form">
     <input type="hidden" id="selectedRole" name="role" value="" required>
     <div class="choice">
-      <div class="role-option student" data-role="student">
+      <div class="role-option student" onclick=student() data-role="student">
         STUDENT
       </div>
-      <div class="role-option teacher" data-role="teacher">
+      <div class="role-option teacher" onclick=teacher() data-role="teacher">
         TEACHER
       </div>
     </div>
@@ -29,10 +29,10 @@
       <span id="message">Welcome!</span> Please enter the required information to proceed. Thank You!
     </p>
     <div class="input-group">
-      <input type="text" id="email" for="email" placeholder="Email" required>
+      <input type="text" id="email" name="email" placeholder="Email" required>
     </div>
     <div class="input-group">
-      <input type="password" id="password" for="password"  placeholder="Password" required>
+      <input type="password" id="password" name="password" placeholder="Password" required>
     </div>
     <a href="#" class="forgot-pass">
       Forgot Password?

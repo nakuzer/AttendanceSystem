@@ -5,7 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>checkLY - Schedule</title>
-  <link rel="stylesheet" href="../Attendance System/style/dashboard.css">
+  <link rel="stylesheet" href="../style/dashboard.css">
+  <link rel="stylesheet" href="../style/nav-bar.css">
+
 </head>
 
 <body>
@@ -19,13 +21,13 @@
             <h3>Danny Dinglasa</h3>
             <h4>Teacher</h4>
           </div>
-          <img src="images/Profilepic.png" alt="" height="35">
+          <img src="../images/Profilepic.png" alt="" height="35">
         </div>
   </nav>
   <aside class="sidebar-menu">
     <ul class="main-btns">
       <li>
-        <a href="dashboard.html"><img src="images/dashboardIcon.png" alt="" height="20"> Dashboard</a>
+        <a href="dashboard.php"><img src="../images/dashboardIcon.png" alt="" height="20"> Dashboard</a>
       </li>
     </ul>
     <div class="work-btns">
@@ -34,12 +36,12 @@
       </h3>
       <ul>
         <li>
-          <a href="classes.html"><img src="images/classesIcon.png" alt="" height="25">
+          <a href="classes.php"><img src="../images/classesIcon.png" alt="" height="25">
             <div>Classes</div>
           </a>
         </li>
         <li>
-          <a href="#"><img src="images/scheduleIcon.png" alt="" height="25">
+          <a href="#"><img src="../images/scheduleIcon.png" alt="" height="25">
             <div>Schedule</div>
           </a>
         </li>
@@ -47,12 +49,12 @@
     </div>
     <ul class="util-btns">
       <li>
-        <a href=""><img src="images/settings.png" alt="" height="18">
+        <a href=""><img src="../images/settings.png" alt="" height="18">
           Settings
         </a>
       </li>
       <li>
-        <a href="index.html"><img src="images/Logout.png" alt="" height="18">
+        <a href="index.html"><img src="../images/Logout.png" alt="" height="18">
           Log Out
         </a>
       </li>

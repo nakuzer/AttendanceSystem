@@ -21,10 +21,12 @@ document.addEventListener("DOMContentLoaded", ()=>{
   }
 
   roleOption.forEach(option => {
-    option.addEventListener('click', () => {
+    option.addEventListener('click', ()=>{
       clearActiveRoles();
       option.classList.add('active');
       setRoleUI(option.dataset.role);
     });
   });
+
+
 });
