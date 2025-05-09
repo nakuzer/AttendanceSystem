@@ -1,17 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>checkLY - Schedule</title>
-  <link rel="stylesheet" href="../style/dashboard.css">
-  <link rel="stylesheet" href="../style/nav-bar.css">
-
-</head>
-
-<body>
-  <nav class="nav-bar">
+<nav class="nav-bar">
     <div class="checkLY">
       check<span>LY</span>
       <div>
@@ -21,7 +8,7 @@
             <h3>Danny Dinglasa</h3>
             <h4>Teacher</h4>
           </div>
-          <img src="../images/Profilepic.png" alt="" height="35">
+          <img src="../images/DannyJunior.jpg" alt="" height="35" style="border-radius: 20px;">
         </div>
   </nav>
   <aside class="sidebar-menu">
@@ -41,7 +28,7 @@
           </a>
         </li>
         <li>
-          <a href="#"><img src="../images/scheduleIcon.png" alt="" height="25">
+          <a href="schedule.php"><img src="../images/scheduleIcon.png" alt="" height="25">
             <div>Schedule</div>
           </a>
         </li>
@@ -54,13 +41,9 @@
         </a>
       </li>
       <li>
-        <a href="index.html"><img src="../images/Logout.png" alt="" height="18">
+        <a href=""><img src="../images/Logout.png" alt="" height="18">
           Log Out
         </a>
       </li>
     </ul>
   </aside>
-
-</body>
-
-</html>
