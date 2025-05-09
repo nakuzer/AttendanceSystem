@@ -13,6 +13,7 @@
 <body>
   <?php include 'template.php'?>
 
-</body>
+</body> 
+
 
 </html>
