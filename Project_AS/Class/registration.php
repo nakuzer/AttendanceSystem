@@ -1,60 +1,118 @@
 <?php
-// Include the Database class
-include_once '../API/database.php';
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
+    session_start();
+    require_once '../API/database.php';
+    header("Access-Control-Allow-Origin: *");
+    header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
+    header("Access-Control-Allow-Headers: Content-Type");
 
-// Create a new Database instance
-$database = new Database();
-$conn = $database->getConnection();
+    
+    $response = array();
+    if($_SERVER['REQUEST_METHOD'] === 'POST'){
+        $database = new Database();
+        $conn = $database->getConnection();
 
-// Check if form is submitted
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Sanitize form data
-    $role = htmlspecialchars($_POST['role']);
-    $email = htmlspecialchars($_POST['email']);
-    $schoolId = htmlspecialchars($_POST['schoolId']);
-    $course = htmlspecialchars($_POST['Course']);
-    $firstName = htmlspecialchars($_POST['firstName']);
-    $lastName = htmlspecialchars($_POST['lastName']);
-    $password = htmlspecialchars($_POST['password']);
-    $confirmPassword = htmlspecialchars($_POST['confirmPassword']);
+        $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
 
-    // Check if passwords match
-    if ($password !== $confirmPassword) {
-        echo "Passwords do not match.";
-        exit;
+        $checkStmt = $conn->prepare("SELECT COUNT(*) FROM users WHERE email = ?");
+        $checkStmt->bindParam(1, $email);
+        $checkStmt->execute();
+
+        if($checkStmt->fetchColumn() > 0){
+            $response['status'] = 'error';
+            $response['message'] = 'Email is already registered.';
+            echo json_encode($response);
+            exit;
+        }
+
+         if (!$email) {
+            $response['status'] = 'error';
+            $response['message'] = 'Invalid email format';
+            echo json_encode($response);
+            exit;
+        }
+
+        // Ensure email is from @wmsu.edu.ph
+        if (!preg_match('/@wmsu\.edu\.ph$/', $email)) {
+            $response['status'] = 'error';
+            $response['message'] = 'Email must be from @wmsu.edu.ph email.';
+            echo json_encode($response);
+            exit;
+        }
+
+        $schoolID = htmlspecialchars($_POST['schoolID']);
+        $role = $_POST['role'];
+        $course = ($role === 'student')? htmlspecialchars($_POST['course']) : null;
+        $field = ($role === 'teacher')? htmlspecialchars($_POST['field']) : null;
+        $firstName = htmlspecialchars($_POST['firstName']);
+        $lastName = htmlspecialchars($_POST['lastName']);
+        // $department = htmlspecialchars($_POST['department']);
+        $password = $_POST['password'];
+        $passwordConfirm = $_POST['confirmPassword'];
+
+        if(strlen($password) < 8){
+            $response['status'] = 'error';
+            $response['message'] = 'password must be more than 8';
+            echo json_encode($response);
+            exit;
+        }
+        if($password !== $passwordConfirm){
+            $response['status'] = 'error';
+            $response['message'] = 'Password doesn\'t match please try again';
+            echo json_encode($response);
+            exit;
+        }
+        $conn->beginTransaction();
+        try{
+            $hashed_password = password_hash($password, PASSWORD_BCRYPT);
+
+            if(!$hashed_password){
+                throw new Exception("Error hashing the password.");
+            }
+
+            $qry = "INSERT INTO users (email, password, role, first_name, last_name) VALUES (?,?,?,?,?)";
+            $stmt = $conn->prepare($qry);
+            $stmt->bindParam(1, $email);
+            $stmt->bindParam(2, $hashed_password);
+            $stmt->bindParam(3, $role);
+            $stmt->bindParam(4, $firstName);
+            $stmt->bindParam(5, $lastName);
+
+            if($stmt->execute()){
+                $user_id = $conn->lastInsertId();
+
+                if($role === 'student'){
+                    $stmt = $conn->prepare("INSERT INTO students(user_id, course) VALUES(?,?)");
+                    $stmt->bindParam(1, $user_id);
+                    $stmt->bindParam(2, $course);
+                    // $stmt->bindParam(3, $department);
+
+                    $stmt->execute();
+                }elseif($role === 'teacher'){
+                    $stmt = $conn->prepare("INSERT INTO teacher(user_id, field) VALUES (?,?)");
+                    $stmt->bindParam(1, $user_id);
+                    $stmt->bindParam(2, $field);
+                    // $stmt->bindParam(3, $department);
+
+                    $stmt->execute();
+                }
+            }
+            $conn->commit();
+            $response['status'] = 'success';
+            $response['message'] = 'Account created successfully.';
+        }catch(Exception $e){
+            $conn->rollBack();
+            $response['status'] = 'error';
+            $response['message'] = 'An error occurred during the registration process. Please try again later.'; // Generic message
+            echo json_encode($response);
+            exit;
+        }
+
     }
+    
+    
+    header('Content-type: application/json');
+    echo json_encode($response);
 
-    // Hash the password for storage
-    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-    // Prepare the SQL query based on role
-    if ($role === 'student') {
-        $sql = "INSERT INTO students (email, school_id, course, first_name, last_name, password)
-                VALUES (:email, :schoolId, :course, :firstName, :lastName, :password)";
-    } elseif ($role === 'teacher') {
-        $sql = "INSERT INTO teachers (email, school_id, course, first_name, last_name, password)
-                VALUES (:email, :schoolId, :course, :firstName, :lastName, :password)";
-    } else {
-        echo "Invalid role selected.";
-        exit;
-    }
-
-    // Prepare the statement
-    $stmt = $conn->prepare($sql);
-
-    // Bind parameters
-    $stmt->bindParam(':email', $email);
-    $stmt->bindParam(':schoolId', $schoolId);
-    $stmt->bindParam(':course', $course);
-    $stmt->bindParam(':firstName', $firstName);
-    $stmt->bindParam(':lastName', $lastName);
-    $stmt->bindParam(':password', $hashedPassword);
-
-    // Execute the query and check if it was successful
-    if ($stmt->execute()) {
-        echo "Account created successfully!";
-    } else {
-        echo "Error: Could not insert the record.";
-    }
-}
 ?>

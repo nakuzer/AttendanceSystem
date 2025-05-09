@@ -30,10 +30,13 @@
       <input type="hidden" id="selectedRole" name="role" value="" required>
 
       <input type="email" id="email" name="email" placeholder="Email" required>
+      <div id="email-error" style="color: red;"></div>
 
       <input type="text" id="idInput" name="schoolId" placeholder="School ID" required>
 
-      <input type="text" id="courseInput" name="Course" placeholder="Course" required>
+      <input type="text" id="courseInput" name="course" placeholder="Course" required>
+      <input type="text" id="fieldInput" name="field" placeholder="Field of Expertise" style="display: none;">
+
 
       <div class="name-inputs">
         <input type="text" id="firstName" name="firstName" placeholder="First Name" required>
