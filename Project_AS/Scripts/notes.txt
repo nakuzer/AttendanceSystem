@@ -73,3 +73,6 @@ CREATE TABLE student_class(
     FOREIGN KEY (stud_id) REFERENCES students(id) ON DELETE CASCADE ON UPDATE CASCADE,
     UNIQUE(class_id, stud_id)
 );
+
+
+Testing
